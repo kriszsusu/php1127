@@ -18,18 +18,23 @@
             $description = htmlspecialchars($_POST['description']);
             $id = 1;
 
-            if (count($tasks) > 0) {
-                $last = end($tasks);
-                $id = $last["id"] + 1;
+            $last = (count($tasks) > 0) ? end($tasks) : array();
+            if(!empty($last) and $last["title"] == $title and $last["description"] == $description) {
+                echo "<div class='alert error'>Task already exists!</div>";
+            } else {
+                if (count($tasks) > 0) {
+                    $id = $last["id"] + 1;
+                }
+    
+                add_task(array(
+                    'id' => $id,
+                    'title' => $title,
+                    'description' => $description,
+                    'completed' => 0,
+                ));
+    
+                echo "<div class='alert'>Task added successfully!</div>";
             }
-
-            add_task(array(
-                'id' => $id,
-                'title' => $title,
-                'description' => $description,
-            ));
-
-            echo "<div class='alert'>Task added successfully!</div>";
         }
     ?>
 
@@ -47,16 +52,20 @@
 
             if (count($tasks) > 0) {
                 foreach ($tasks as &$task) {
-                    echo "<div class='task'>
-                        <p class='title'>" . htmlspecialchars($task['title']) . "</p>
-                        <p class='description'>" . htmlspecialchars($task['description']) . "</p>
-                      </div>";
+                    echo ("<a href='view.php?id=". $task["id"] . "'>
+                        <div class='task" . (($task["completed"] === 1) ? ' disabled' : '') . "'>
+                            <p class='title'>" . htmlspecialchars($task['title']) . "</p>
+                            <p class='description'>" . substr(htmlspecialchars($task['description']), 0, 30) . ((strlen($task["description"]) > 30) ? "..." : "") . "</p>
+                        </div>
+                    </a>");
                 }
             } else {
-                echo "<div class='task disabled'>
-                        <p class='title'>No tasks yet</p>
-                        <p class='description'>Click the 'Add Task' page in the navigation bar to add a new task.</p>
-                      </div>";
+                echo "<a href='addtask.php'>
+                        <div class='task disabled'>
+                            <p class='title'>No tasks yet</p>
+                            <p class='description'>Click the 'Add Task' page in the navigation bar to add a new task.</p>
+                        </div>
+                    </a>";
             }
         ?>
     </div>

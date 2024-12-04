@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    
     function get_cookie_array() {
         if (isset($_COOKIE["tasks"]) && !empty($_COOKIE["tasks"])) {
             $decoded_json = base64_decode($_COOKIE["tasks"]);

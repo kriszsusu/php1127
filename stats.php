@@ -15,6 +15,7 @@
             <li><a href="stats.php">stats</a></li>
         </ul>
     </nav>
+
     <div class="task-container">
         <div class="task">
             <p class="title">Task Stats</p>
@@ -30,7 +31,7 @@
                     $completed_tasks = 0;
 
                     foreach ($tasks as $task) {
-                        if (isset($task['completed']) && $task['completed'] === true) {
+                        if (isset($task['completed']) && $task['completed'] === 1) {
                             $completed_tasks++;
                         }
                     }
