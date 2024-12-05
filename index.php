@@ -10,14 +10,14 @@
 
     <?php
         require_once('./cookman.php');
-
+        $task_arr=array();
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $tasks = get_cookie_array();
 
             $title = htmlspecialchars($_POST['title']);
             $description = htmlspecialchars($_POST['description']);
             $id = 1;
-
+            
             $last = (count($tasks) > 0) ? end($tasks) : array();
             if(!empty($last) and $last["title"] == $title and $last["description"] == $description) {
                 echo "<div class='alert error'>Task already exists!</div>";
@@ -25,14 +25,16 @@
                 if (count($tasks) > 0) {
                     $id = $last["id"] + 1;
                 }
-    
-                add_task(array(
+                
+                $task_arr = array(
                     'id' => $id,
                     'title' => $title,
                     'description' => $description,
                     'completed' => 0,
-                ));
-    
+                );
+
+                add_task($task_arr);
+                
                 echo "<div class='alert'>Task added successfully!</div>";
             }
         }
@@ -49,12 +51,13 @@
     <div class="task-container">
         <?php
             $tasks = get_cookie_array();
+            if(!empty($task_arr)) array_push($tasks, $task_arr);
 
             if (count($tasks) > 0) {
                 foreach ($tasks as &$task) {
                     echo ("<a href='view.php?id=". $task["id"] . "'>
                         <div class='task" . (($task["completed"] === 1) ? ' disabled' : '') . "'>
-                            <p class='title'>" . htmlspecialchars($task['title']) . "</p>
+                            <p class='title" . (($task["completed"] === 1) ? ' complete' : '') . "'>" . substr(htmlspecialchars($task['title']), 0, 20) . ((strlen($task["title"]) > 20) ? "..." : "") . "</p>
                             <p class='description'>" . substr(htmlspecialchars($task['description']), 0, 30) . ((strlen($task["description"]) > 30) ? "..." : "") . "</p>
                         </div>
                     </a>");

@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', Arial, sans-serif;
 }
 
 body {
@@ -118,11 +120,11 @@ nav ul li a:hover {
 }
 
 .alert {
+    width: fit-content;
+    margin: 10px auto;
     background-color: #373;
     color: white;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 4px;
+    padding: 15px 20px;
     text-align: center;
 }
 
@@ -132,11 +134,11 @@ nav ul li a:hover {
 }
 
 .alert.error {
-    background-color: #900;
+    background-color: #97851e;
 }
 
 .alert.error::before {
-    content: "✖";
+    content: "⚠";
     margin-right: 15px;
 }
 
@@ -153,6 +155,14 @@ a:hover {
 a.link {
     text-decoration: underline;
     font-weight: 600;
+    width:fit-content;
+    color:#000;
+    transition: color .2s;
+}
+
+a.link:hover {
+    transform:scale(1);
+    color: #555;
 }
 
 .container {
@@ -164,7 +174,7 @@ a.link {
     gap:10px;
 }
 
-div.container p.description {
+div.container p.description, div.container h1 {
     word-wrap:break-word;
 }
 
@@ -181,19 +191,51 @@ div.container p.description {
     border-radius: 3px;
 }
 
+.button::before {
+    content: '';
+    margin-right:15px;
+}
+
 a.button.red {
     background-color: #a00;
+}
+
+a.button.red::before{
+    content: "🗑";
 }
 
 a.button.green {
     background-color: #0a0;
 }
 
+a.button.green::before{
+    content: "✔";
+}
+
 a.button.yellow {
     background-color: #880;
 }
 
+a.button.yellow::before{
+    content: "⏱";
+}
+
 a.button.disabled {
     opacity: .8;
+    background-color: #aaa;
     cursor:not-allowed;
+}
+
+textarea {
+    resize: vertical;
+}
+
+h1.complete {
+    font-style: italic;
+    opacity: .3;
+}
+
+h1.complete::before, p.complete::before {
+    content: "✔";
+    margin-right: 15px;
 }

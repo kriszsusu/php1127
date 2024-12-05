@@ -43,7 +43,7 @@
                 echo "<a href='index.php' class='link'>Go back</a>";
                 exit();
             } else {
-                echo "<h1>" . $task["title"] . "</h1>";
+                echo "<h1" . (($task["completed"] === 1) ? ' class="complete"' : '') . ">" . $task["title"] . "</h1>";
                 echo "<p class='description'>" . $task["description"] . "</p>";
 
                 echo "
